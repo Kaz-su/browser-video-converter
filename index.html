@@ -1,0 +1,92 @@
+<html>
+
+<head>
+  <style>
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>アップロードされた動画を MP4(h264) に変換します</h3>
+  <p>
+    <label for="uploader">変換する動画ファイル</label>
+    <input type="file" id="uploader">
+  </p>
+  <p>
+    <label for="video-bit-rate">目標動画ビットレート[kbps]</label>
+    <input type="number" id="video-bit-rate">
+  </p>
+  <p>
+    <label for="audio-bit-rate">音声ビットレート[kbps]</label>
+    <select id="audio-bit-rate">
+      <option value="64">64</option>
+      <option value="128">128</option>
+      <option value="192" selected>192</option>
+    </select>
+  </p>
+  <p>
+    <label for="audio-sampling-rate">音声サンプリングレート[bps]</label>
+    <select id="audio-sampling-rate">
+      <option value="44100">44100</option>
+      <option value="48000" selected>48000</option>
+    </select>
+  </p>
+  <p>
+    <label for="need-deinterlace">インターレースを解除する(映像走査方式をプログレッシブにする)</label>
+    <input type="checkbox" id="need-deinterlace" checked>
+  </p>
+  <p>
+    <label for="size">横x縦[px]</label>
+    <select id="size">
+      <option value="1280x720" selected>1280x720</option>
+      <option value="1920x1080">1920x1080</option>
+    </select>
+  </p>
+  <p>
+    <label for="codec-profile">コーデックプロファイル</label>
+    <select id="codec-profile">
+      <option value="Main">Main</option>
+      <option value="High" selected>High</option>
+    </select>
+  </p>
+  <p>
+    <label for="codec-level">コーデックレベル</label>
+    <select id="codec-level">
+      <option value="3.0">3.0</option>
+      <option value="3.1">3.1</option>
+      <option value="3.2">3.2</option>
+      <option value="4.0">4.0</option>
+      <option value="4.1">4.1</option>
+      <option value="4.2" selected>4.2</option>
+    </select>
+  </p>
+  <p>
+    <label for="frame-rate">フレームレート</label>
+    <select id="frame-rate">
+      <option value="24" selected>24</option>
+      <option value="25">25</option>
+      <option value="29.97">29.97</option>
+      <option value="30">30</option>
+    </select>
+  </p>
+  <button type="button" id="start-convert">変換開始</button>
+  <p id="message"></p>
+  <a id="download" href="" download>Download</a>
+  <video id="output-video" controls></video><br/>
+</body>
+
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.9.5/dist/ffmpeg.min.js"></script>
+<script src="./index.js"></script>
+
+</html>
