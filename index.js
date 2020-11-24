@@ -30,9 +30,9 @@ const transcode = async () => {
     ffmpeg_params.push('-c:v', 'libx264');           // convert to h264
     if (codec_profile) {
         ffmpeg_params.push('-profile', codec_profile); // h264 codec profile
-    }
-    if (codec_level) {
-        ffmpeg_params.push('-level', codec_level); // h264 codec level
+        if (codec_level) {
+            ffmpeg_params.push('-level', codec_level); // h264 codec level
+        }
     }
     if (size) {
         ffmpeg_params.push('-s', size); // size (width x height)
