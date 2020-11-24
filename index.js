@@ -17,11 +17,6 @@ const transcode = async () => {
     const codec_level = document.getElementById('codec-level').value;
     const frame_rate = document.getElementById('frame-rate').value;
 
-    if (!video_bit_rate) {
-        message.innerHTML = '目標動画ビットレートを入力してください。';
-        return;
-    }
-
     const video = document.getElementById('output-video');
     URL.revokeObjectURL(video.src);
 
@@ -33,13 +28,27 @@ const transcode = async () => {
     const ffmpeg_params = [];
     ffmpeg_params.push('-i', name);                  // input file name
     ffmpeg_params.push('-c:v', 'libx264');           // convert to h264
-    ffmpeg_params.push('-profile', codec_profile);   // h264 codec profile
-    ffmpeg_params.push('-level', codec_level);       // h264 codec level
-    ffmpeg_params.push('-s', size);                  // size (width x height)
-    ffmpeg_params.push('-r', frame_rate);            // frame rate
-    ffmpeg_params.push('-vb', video_bit_rate + 'k'); // video bit rate [kbps]
-    ffmpeg_params.push('-ab', audio_bit_rate + 'k'); // audio bit rate [kbps]
-    ffmpeg_params.push('-ar', audio_sampling_rate ); // audio sampling rate [bps]
+    if (codec_profile) {
+        ffmpeg_params.push('-profile', codec_profile); // h264 codec profile
+    }
+    if (codec_level) {
+        ffmpeg_params.push('-level', codec_level); // h264 codec level
+    }
+    if (size) {
+        ffmpeg_params.push('-s', size); // size (width x height)
+    }
+    if (frame_rate) {
+        ffmpeg_params.push('-r', frame_rate); // frame rate
+    }
+    if (video_bit_rate || video_bit_rate < 0) {
+        ffmpeg_params.push('-vb', video_bit_rate + 'k'); // video bit rate [kbps]
+    }
+    if (audio_bit_rate) {
+        ffmpeg_params.push('-ab', audio_bit_rate + 'k'); // audio bit rate [kbps]
+    }
+    if (audio_sampling_rate) {
+        ffmpeg_params.push('-ar', audio_sampling_rate ); // audio sampling rate [bps]
+    }
     if (need_deinterlace) {
         ffmpeg_params.push('-vf', 'yadif=deint=interlaced'); // deinterlace
     }
