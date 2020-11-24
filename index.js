@@ -66,3 +66,13 @@ const transcode = async () => {
 }
 
 document.getElementById('start-convert').addEventListener('click', transcode);
+
+document.getElementById('codec-profile').addEventListener('change', function () {
+    const codec_level_elem = document.getElementById('codec-level');
+    if (this.value === '') {
+        codec_level_elem.value = '';
+        codec_level_elem.disabled = true;
+    } else {
+        codec_level_elem.disabled = false;
+    }
+});
