@@ -63,6 +63,7 @@ const transcode = async () => {
 
     video.src = videoUrl;
     document.getElementById('download').href = videoUrl;
+    document.getElementById('download').download = 'converted.mp4';
 }
 
 document.getElementById('start-convert').addEventListener('click', transcode);
